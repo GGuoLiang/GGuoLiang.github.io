@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://gguoliang.github.io</id>
     <title>GGuoLiang</title>
-    <updated>2020-04-23T06:56:16.178Z</updated>
+    <updated>2020-04-23T07:11:01.237Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://gguoliang.github.io"/>
     <link rel="self" href="https://gguoliang.github.io/atom.xml"/>
@@ -17,70 +17,9 @@
         </link>
         <updated>2020-04-23T06:53:57.000Z</updated>
         <summary type="html"><![CDATA[<h2 id="io流">IO流</h2>
-<table>
-<thead>
-<tr>
-<th>分类</th>
-<th>字节输入流</th>
-<th>字节输出流</th>
-<th>字符输入流</th>
-<th>字符输出流</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>抽象基类</td>
-<td>InputStream</td>
-<td>OutputStream</td>
-<td>Reader</td>
-<td>Writer</td>
-</tr>
-<tr>
-<td>缓冲流</td>
-<td>BufferedInputStream</td>
-<td>BufferedOutputStream</td>
-<td>BufferedReader</td>
-<td>BufferedWriter</td>
-</tr>
-<tr>
-<td>文件流</td>
-<td>FileInputStream</td>
-<td>FileOutputStream</td>
-<td>FileReader</td>
-<td>FileWriter</td>
-</tr>
-<tr>
-<td>转换流</td>
-<td></td>
-<td></td>
-<td>InputStreamReader</td>
-<td>OutputStreamWriter</td>
-</tr>
-<tr>
-<td>打印流</td>
-<td></td>
-<td>PrintStream</td>
-<td></td>
-<td>PrintWriter</td>
-</tr>
-<tr>
-<td>数据流</td>
-<td>DataInputStream</td>
-<td>DataOutputStream</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>对象流</td>
-<td>ObjectInputStream</td>
-<td>ObjectOutputStream</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
 ]]></summary>
         <content type="html"><![CDATA[<h2 id="io流">IO流</h2>
+<!-- more -->
 <table>
 <thead>
 <tr>
