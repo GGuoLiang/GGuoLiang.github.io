@@ -1,0 +1,414 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>IO流 | GGuoLiang</title>
+<link rel="shortcut icon" href="https://gguoliang.github.io/favicon.ico?v=1587624973343">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gguoliang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="IO流 | GGuoLiang - Atom Feed" href="https://gguoliang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="IO流
+
+
+
+分类
+字节输入流
+字节输出流
+字符输入流
+字符输出流
+
+
+
+
+抽象基类
+InputStream
+OutputStream
+Reader
+Writer
+
+
+缓冲流
+BufferedInputStream
+BufferedOutp..." />
+    <meta name="keywords" content="Java基础" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gguoliang.github.io">
+  <img class="avatar" src="https://gguoliang.github.io/images/avatar.png?v=1587624973343" alt="">
+  </a>
+  <h1 class="site-title">
+    GGuoLiang
+  </h1>
+  <p class="site-description">
+    GGuoLiang 莫听穿林打叶声
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              IO流
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-23
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://gguoliang.github.io/tag/GBfQR2pqO/" class="post-tag">
+                  # Java基础
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="io流">IO流</h2>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>字节输入流</th>
+<th>字节输出流</th>
+<th>字符输入流</th>
+<th>字符输出流</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>抽象基类</td>
+<td>InputStream</td>
+<td>OutputStream</td>
+<td>Reader</td>
+<td>Writer</td>
+</tr>
+<tr>
+<td>缓冲流</td>
+<td>BufferedInputStream</td>
+<td>BufferedOutputStream</td>
+<td>BufferedReader</td>
+<td>BufferedWriter</td>
+</tr>
+<tr>
+<td>文件流</td>
+<td>FileInputStream</td>
+<td>FileOutputStream</td>
+<td>FileReader</td>
+<td>FileWriter</td>
+</tr>
+<tr>
+<td>转换流</td>
+<td></td>
+<td></td>
+<td>InputStreamReader</td>
+<td>OutputStreamWriter</td>
+</tr>
+<tr>
+<td>打印流</td>
+<td></td>
+<td>PrintStream</td>
+<td></td>
+<td>PrintWriter</td>
+</tr>
+<tr>
+<td>数据流</td>
+<td>DataInputStream</td>
+<td>DataOutputStream</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>对象流</td>
+<td>ObjectInputStream</td>
+<td>ObjectOutputStream</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- more -->
+<h3 id="file-类">file 类</h3>
+<ol>
+<li>file类的一个对象代表一个文件和一个文件目录</li>
+<li>file类声明在java.io包下</li>
+<li>file类中的涉及到了关于的文件或文件目录的创建、删除、重命名、修改时间、文件大小等方法，并未涉及到写入或者读取文件的内容的操作。如果需要读取内容或者是 写入文件内容就需要使用IO流来完成。</li>
+<li>file类的对象常常会作为参数传递到流的构建当中，指明读取或者写入的“终点”。</li>
+</ol>
+<h3 id="io流-2">IO流</h3>
+<p>处理设备之间的数据传输</p>
+<p>流向区分</p>
+<p>输入流：读取外部数据到程序内存</p>
+<p>输出流t：程序内存输出到外部</p>
+<p>数据单位区分</p>
+<p>字节流（8bit）：InputStream和OutputStream  图片，视频 非文本数据</p>
+<p>字符流（16Bit）：Reader和Writer   char 为单位 ，适合文本数据</p>
+<p>流的角色区分：</p>
+<p>节点流：直接作用在文件之上的流（四个抽象基类 或者文件流）</p>
+<p>处理流： 包裹处理的流</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>字节流（8bit）</th>
+<th>字符流（16bit）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输入流</td>
+<td>InputStream</td>
+<td>Reader</td>
+</tr>
+<tr>
+<td>输出流</td>
+<td>OutputStream</td>
+<td>Writer</td>
+</tr>
+</tbody>
+</table>
+<h4 id="节点流">节点流</h4>
+<h5 id="filereader-和filewriter">FileReader 和FileWriter</h5>
+<ol>
+<li>
+<p>read() ：返回读入的一个字符，如果到达文件末尾会返回一个-1</p>
+</li>
+<li>
+<p>异常处理：使用try-catch-finally</p>
+</li>
+<li>
+<p>流的关闭：close()</p>
+</li>
+<li>
+<p>读取的文件必须存在，输出的文件不必存在，会自动创建。</p>
+</li>
+<li>
+<p>输出操作时原有文件存在 注意输出流的构建器 append参数设置，append：true 原有文件追加操作 flase直接覆盖原有文件内容</p>
+</li>
+<li>
+<p>不能使用字符流处理字节数</p>
+</li>
+</ol>
+<h5 id="fileinputstream-和outputstream">FileInputStream 和OutPutStream</h5>
+<p>使用与字符流差不多</p>
+<h4 id="处理流">处理流</h4>
+<h5 id="缓冲流">缓冲流</h5>
+<ol>
+<li>
+<p>BufferedInputStream BufferedOutputStream BufferedReader BufferedWriter</p>
+</li>
+<li>
+<p>作用：提升流的读写速度。原因内部提供了一个缓冲区</p>
+</li>
+<li>
+<p>先关闭外层的流 在关闭内层的流。但是在关闭外层的流时，会自动关闭内层的流。</p>
+</li>
+<li>
+<p>flush（）：刷新缓存区</p>
+</li>
+<li>
+<p>处理流：套接在已有流的基础上</p>
+</li>
+<li>
+<p>readLine（）： 一次读一行</p>
+</li>
+<li>
+<p>newLine（）：换行</p>
+</li>
+</ol>
+<h5 id="转换流">转换流</h5>
+<p>字节流转换为字符流</p>
+<ol>
+<li>
+<p>InputStreamReader （InputStream转Reader，解码）OutputStreamWtiter（Wtiter转OutputStream流，编码）  属于字符流</p>
+</li>
+<li>
+<p>解码：字节-字符  编码：字符-字节</p>
+</li>
+<li>
+<p>字符集：构造器的字符集参数取决于存的时候使用的字符集</p>
+</li>
+</ol>
+<h5 id="标准的输出-输入流">标准的输出、输入流</h5>
+<p>Systeam.in:输入流 默认 键盘输入流（字节流）</p>
+<p>Systeam.out：输出流  默认控制台输出</p>
+<h5 id="打印流">打印流</h5>
+<p>PrintStream PrintWriter（都是输出流）</p>
+<p>提供print和println方法</p>
+<h5 id="数据流">数据流</h5>
+<p>DataInputStream DataOutputStream</p>
+<p>用于读取和写入基本数据的变量和字符串</p>
+<p>注：读取数据时要与写入顺序一致</p>
+<h5 id="对象流">对象流</h5>
+<p>你对象的序列化和反序列化</p>
+<p>对象的序列化机制：允许吧内存中的java对象转换成平台无关的二进制流，从而把这种二进制流持续地保存在磁盘上；或者通过网络将这种二进制流传输到另一个 网络节点，当其他程序获取了这种二进制流，就可以恢复成原来的java对象。</p>
+<p>自定义类是可序列化的</p>
+<ol>
+<li>需要实现接口 Serializable</li>
+<li>当前类提供一个全局变量：serialVersionUID</li>
+<li>处理当前自定的类实现序列化接口之外，还必须保证其内部所有属性也必须是可序列化的（默认情况下，基本数据类型可序列化）</li>
+</ol>
+<p>注;ObjectInputStream 和 ObjectOutputStream不能序列化static 和transient修饰的成员变量</p>
+<h5 id="随机存取文件流">随机存取文件流</h5>
+<p>RandomAccessFile   输出流  输入流  双向的  实现DataInput DataOutPut 类<br>
+构造器 第二个参数mode 指定文件的访问模式<br>
+r:以只读的方式打开、<br>
+rw：读写、<br>
+rwd：<br>
+rws</p>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#io%E6%B5%81">IO流</a>
+<ul>
+<li><a href="#file-%E7%B1%BB">file 类</a></li>
+<li><a href="#io%E6%B5%81-2">IO流</a>
+<ul>
+<li><a href="#%E8%8A%82%E7%82%B9%E6%B5%81">节点流</a>
+<ul>
+<li><a href="#filereader-%E5%92%8Cfilewriter">FileReader 和FileWriter</a></li>
+<li><a href="#fileinputstream-%E5%92%8Coutputstream">FileInputStream 和OutPutStream</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%84%E7%90%86%E6%B5%81">处理流</a>
+<ul>
+<li><a href="#%E7%BC%93%E5%86%B2%E6%B5%81">缓冲流</a></li>
+<li><a href="#%E8%BD%AC%E6%8D%A2%E6%B5%81">转换流</a></li>
+<li><a href="#%E6%A0%87%E5%87%86%E7%9A%84%E8%BE%93%E5%87%BA-%E8%BE%93%E5%85%A5%E6%B5%81">标准的输出、输入流</a></li>
+<li><a href="#%E6%89%93%E5%8D%B0%E6%B5%81">打印流</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%B5%81">数据流</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E6%B5%81">对象流</a></li>
+<li><a href="#%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%8F%96%E6%96%87%E4%BB%B6%E6%B5%81">随机存取文件流</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gguoliang.github.io/post/java-dui-xiang-he-nei-cun-kong-zhi/">
+              <h3 class="post-title">
+                Java对象和内存控制
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gguoliang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

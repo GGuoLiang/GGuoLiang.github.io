@@ -1,0 +1,285 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>反射相关的理解  | GGuoLiang</title>
+<link rel="shortcut icon" href="https://gguoliang.github.io/favicon.ico?v=1587624973343">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://gguoliang.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="反射相关的理解  | GGuoLiang - Atom Feed" href="https://gguoliang.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="反射相关的理解
+Java 的反射机制是指在运行状态中，对于任意一个类都能够知道这个类所有的属性和方法； 并且对于任意一个对象，都能够调用它的任意一个方法；这种动态获取信息以及动态调用对象方法的功能成为Java语言的反射机制。
+正射
+创建类的..." />
+    <meta name="keywords" content="Java基础" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://gguoliang.github.io">
+  <img class="avatar" src="https://gguoliang.github.io/images/avatar.png?v=1587624973343" alt="">
+  </a>
+  <h1 class="site-title">
+    GGuoLiang
+  </h1>
+  <p class="site-description">
+    GGuoLiang 莫听穿林打叶声
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              反射相关的理解 
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-23
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://gguoliang.github.io/tag/GBfQR2pqO/" class="post-tag">
+                  # Java基础
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="反射相关的理解">反射相关的理解</h3>
+<p>Java 的<strong>反射机制</strong>是指在运行状态中，对于任意一个类都能够知道这个类所有的属性和方法； 并且对于任意一个对象，都能够调用它的任意一个方法；这种动态获取信息以及动态调用对象方法的功能成为Java语言的反射机制。</p>
+<h5 id="正射">正射</h5>
+<p>创建类的Java对象</p>
+<pre><code class="language-java"> Student student  = new Student();
+ System.out.println(student.doWork(&quot;数学&quot;));
+
+</code></pre>
+<h5 id="反射">反射</h5>
+<pre><code class="language-java"> // 获取类的class对象
+ Student student1 = new Student();
+ Class clazz = student1.getClass();
+// 获取类的构造器
+ Constructor constructor = clazz.getConstructor();
+// 创建类的实例对象
+ Object object = constructor.newInstance();
+// 获取类的方法
+ Method doWork = clazz.getMethod(&quot;doWork&quot;, String.class);
+ System.out.println(doWork.invoke(object,&quot;语文&quot;));
+</code></pre>
+<p>上面的俩段代码作用正好从正反俩方面创建类的实例对象</p>
+<h4 id="class对象理解">class对象理解</h4>
+<p><strong>一个类对应一个class对象但是对应多个实例对象（Java对象</strong>）</p>
+<p><strong>Class类的对象作用</strong>是运行时提供或获得某个对象的类型信息</p>
+<h4 id="反射基本使用">反射基本使用</h4>
+<h6 id="获取反射中的class对象三种方法">获取反射中的class对象三种方法</h6>
+<pre><code class="language-java">获取class对象的三种方法 
+ 1.Class.forName(&quot;&quot;) 方法  
+   Class clazz = Class.forName(&quot;javaSE.Student&quot;);
+ 2.类的.clsss 方法   
+   Class clazz = Student.class;
+ 3.实例对象的.getClass() 方法
+   Student student1 = new Student();
+   Class clazz = student1.getClass();
+</code></pre>
+<h6 id="反射获取构造器">反射获取构造器</h6>
+<pre><code class="language-java">//Student类的构造器
+  public Student() {
+        super();
+    }
+
+    public Student(long id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+// 反射获取类的构造器 （这俩个方法都有参数和不带参数俩种） 
+//1.clazz.getConstructor() 只能获取public的方法
+   Constructor constructor1 = clazz.getConstructor();
+//2.clazz.getDeclaredConstructors()
+   Constructor[] declaredConstructors 
+     =clazz.getDeclaredConstructors();
+     for (int i = 0; i &lt; declaredConstructors.length; i++) {
+        System.out.println(declaredConstructors[i]);
+     }
+//3.带参数clazz.getConstructor() 只能获取public的方法
+Constructor constructor2 
+  = clazz.getConstructor(Integer.class, String.class, Integer.class);
+//4.带参数clazz.getDeclaredConstructors()  
+Constructor declaredConstructor 
+  = clazz.getDeclaredConstructor(Integer.class, String.class, Integer.class);
+
+</code></pre>
+<h6 id="反射创建实例对象">反射创建实例对象</h6>
+<pre><code class="language-Java"> // 反射创建对象的方式 
+ //1.通过class对象的newInstance()  
+ Student student2 = (Student) clazz.newInstance();
+ System.out.println(doWork.invoke(student2,&quot;体育&quot;));
+ //2.constructor的newInstance()
+ Object object = constructor.newInstance();
+ System.out.println(doWork.invoke(object,&quot;语文&quot;));
+
+</code></pre>
+<h6 id="反射获取类的成员变量">反射获取类的成员变量</h6>
+<pre><code class="language-Java">1. Field[] fields = clazz.getFields();// 获取类的所有public成员变量
+2. Field declaredField = clazz.getDeclaredField(&quot;name&quot;);
+3. Field name = clazz.getField(&quot;name&quot;); // 根绝name获取类的public成员变量
+4. Field[] declaredFields = clazz.getDeclaredFields();
+</code></pre>
+<h6 id="反射获取类的方法">反射获取类的方法</h6>
+<pre><code class="language-java">1. Method[] methods = clazz.getMethods();// 获取类的public方法
+2. clazz.getMethod(&quot;name&quot;,String.class);// 获取类的name方法
+3. Method[] declaredMethods = clazz.getDeclaredMethods();
+4 .clazz.getDeclaredMethod(&quot;name&quot;,String.class);
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%8F%8D%E5%B0%84%E7%9B%B8%E5%85%B3%E7%9A%84%E7%90%86%E8%A7%A3">反射相关的理解</a><br>
+*
+<ul>
+<li><a href="#%E6%AD%A3%E5%B0%84">正射</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84">反射</a></li>
+<li><a href="#class%E5%AF%B9%E8%B1%A1%E7%90%86%E8%A7%A3">class对象理解</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">反射基本使用</a><br>
+*
+<ul>
+<li><a href="#%E8%8E%B7%E5%8F%96%E5%8F%8D%E5%B0%84%E4%B8%AD%E7%9A%84class%E5%AF%B9%E8%B1%A1%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95">获取反射中的class对象三种方法</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E6%9E%84%E9%80%A0%E5%99%A8">反射获取构造器</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1">反射创建实例对象</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F">反射获取类的成员变量</a></li>
+<li><a href="#%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95">反射获取类的方法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://gguoliang.github.io/post/mac-item2-zi-dong-yuan-cheng-lian-jie-fu-wu-qi/">
+              <h3 class="post-title">
+                Mac Item2自动远程连接服务器
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://gguoliang.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
