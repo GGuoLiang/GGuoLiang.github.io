@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://gguoliang.github.io</id>
     <title>GGuoLiang</title>
-    <updated>2020-04-23T07:11:01.237Z</updated>
+    <updated>2020-04-23T07:15:36.254Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://gguoliang.github.io"/>
     <link rel="self" href="https://gguoliang.github.io/atom.xml"/>
@@ -16,10 +16,8 @@
         <link href="https://gguoliang.github.io/post/io-liu/">
         </link>
         <updated>2020-04-23T06:53:57.000Z</updated>
-        <summary type="html"><![CDATA[<h2 id="io流">IO流</h2>
-]]></summary>
-        <content type="html"><![CDATA[<h2 id="io流">IO流</h2>
-<!-- more -->
+        <content type="html"><![CDATA[<!-- more -->
+<h2 id="io流">IO流</h2>
 <table>
 <thead>
 <tr>
